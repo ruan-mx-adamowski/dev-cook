@@ -12,7 +12,7 @@ Para garantir reprodutibilidade e consistência no desenvolvimento (humano e por
 | :--- | :--- | :--- |
 | **HTML5** | W3C Standard | Estrutura semântica dos documentos |
 | **CSS3** | W3C Standard | Customização de layout e temas |
-| **Bootstrap** | `v5.3.3` | Grid responsivo, modais, formulários e cards |
+| **Bootstrap** | `v5.3.8` | Grid responsivo, modais, formulários e cards |
 | **jQuery** | `v3.7.1` | Manipulação do DOM e requisições AJAX |
 | **Spoonacular API** | `v1 REST API` | Busca por ingredientes e dados nutricionais |
 | **JSON Server** | `v0.17.4` | Backend fake / Mock REST local (`db.json`) |
