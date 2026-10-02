@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Bootstrap</title>
+    <!-- Inclua os estilos CSS do Bootstrap -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Inclua os scripts JavaScript do Bootstrap (junto com Popper.js) -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container">
+    <!-- Primeira Linha: Três Colunas com Largura Automática -->
+    <div class="row">
+        <div class="col text-bg-info">Primeira Coluna</div>
+        <div class="col text-bg-danger">Segunda Coluna</div>
+        <div class="col d-none d-md-block text-bg-warning">Terceira Coluna (Oculta em XS e SM)</div>
+    </div>
+    <!-- Segunda Linha: Coluna Única -->
+    <div class="row">
+        <div class="col-12 text-bg-secondary">Coluna Única da Segunda Linha</div>
+    </div>
+    <!-- Terceira Linha: Tamanhos Fixos, Offset e Order -->
+    <div class="row">
+        <!-- Coluna com offset -->
+        <div class="col-md-4 offset-md-2 text-bg-info">Coluna com Offset</div>
+        <!-- Coluna com ordem personalizada -->
+        <div class="col-md-4 order-md-3 text-bg-danger">Coluna com Ordem 3</div>
+        <!-- Coluna padrão -->
+        <div class="col-md-4 order-md-1 text-bg-warning">Coluna com Ordem 1</div>
+    </div>
+<div class="col">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Abrir Modal
+    </button>
+</div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Este é o conteúdo do modal.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col">
+    <div class="card">
+        <img src="https://placehold.co/150x100" class="card-img-top img-fluid" alt="Imagem">
+        <div class="card-body">
+            <h5 class="card-title">Título do Card</h5>
+            <p class="card-text">Este é um exemplo de texto no corpo do card.</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
