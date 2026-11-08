@@ -1,0 +1,1285 @@
+
+:root {
+  --dc-orange: #e67e22;
+  --dc-orange-strong: #d96f12;   /* fundo do botão (melhor contraste com texto branco) */
+  --dc-orange-hover: #bf5f0a;
+  --dc-brown: #8a3a00;           /* links e destaques em marrom-laranja */
+  --dc-ink: #0f1f33;             /* texto principal (azul-marinho) */
+  --dc-muted: #566274;           /* texto secundário */
+  --dc-field: #eaf1fe;           /* fundo dos campos */
+  --dc-surface: #f6f8fe;         /* fundo da página */
+  --dc-green: #0b6b3a;
+  --dc-green-soft: #d3f4e0;
+  --dc-night: #1c2b40;           /* fundo do "terminal" */
+  --dc-line: #e6ecf7;            /* linhas e divisórias suaves */
+
+  --dc-font-display: "Epilogue", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dc-font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --dc-font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Variam por página (ver seção 3): login = arredondado, cadastro = mais reto */
+  --dc-field-radius: .5rem;
+  --dc-btn-radius: .25rem;
+
+  /* Sobrescreve variáveis do Bootstrap para ele usar a nossa identidade */
+  --bs-body-font-family: var(--dc-font-body);
+  --bs-body-color: var(--dc-ink);
+  --bs-body-bg: var(--dc-surface);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.auth-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .auth-page { padding: 2rem; }
+}
+
+
+/* 3. ESTRUTURA ============================================================= */
+/* .auth-shell = caixa que limita a largura do conteúdo em cada tela */
+.auth-shell {
+  width: 100%;
+  max-width: 30rem;            /* celular: coluna única e estreita */
+}
+
+@media (min-width: 768px) {
+  .auth-shell { max-width: 36rem; }   /* tablet: formulário centralizado */
+}
+
+@media (min-width: 992px) {
+  .auth-shell { max-width: 72rem; }   /* desktop: duas colunas */
+}
+
+/* --- Variação LOGIN: dois cartões separados, campos em formato "pílula" --- */
+.auth-shell--login {
+  --dc-field-radius: 999px;
+  --dc-btn-radius: 999px;
+}
+
+/* --- Variação CADASTRO: um único cartão dividido em duas partes ---------- */
+.auth-shell--register {
+  --dc-field-radius: .5rem;
+  --dc-btn-radius: .25rem;
+  background: #fff;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 24px 60px -24px rgba(15, 31, 51, .3);
+}
+
+@media (min-width: 992px) {
+  .auth-shell--register { border-radius: 2.5rem; }
+}
+
+/* .auth-panel = cartão branco/colorido (usado no login) */
+.auth-panel {
+  border-radius: 1.75rem;
+  box-shadow: 0 24px 60px -24px rgba(15, 31, 51, .3);
+}
+
+@media (min-width: 992px) {
+  .auth-panel { border-radius: 2.5rem; }
+}
+
+/* No cadastro o cartão é o próprio shell, então os painéis internos ficam "chapados" */
+.auth-shell--register .auth-panel {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Painel do formulário (lado direito) */
+.auth-form-panel {
+  background: #fff;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-shell--register .auth-form-panel { background: transparent; }
+
+@media (min-width: 768px) {
+  .auth-form-panel { padding: 2.5rem; }
+}
+
+@media (min-width: 992px) {
+  .auth-form-panel { padding: 3rem; }
+}
+
+.auth-form-panel__foot {
+  margin-top: auto;      /* empurra o rodapé para o fim do cartão */
+  padding-top: 1.5rem;
+}
+
+/* Coluna lateral (esquerda). No Bootstrap ela já vem com d-none d-lg-block,
+   ou seja, só aparece a partir de 992px. */
+.auth-aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+@media (min-width: 1200px) {
+  .auth-aside { padding: 3rem; }
+}
+
+.auth-aside--login {
+  background:
+    radial-gradient(circle at 0% 100%, #c9f3df 0, transparent 55%),
+    linear-gradient(135deg, #e3edff 0%, #f8ece9 100%);
+}
+
+.auth-aside--register {
+  background:
+    radial-gradient(circle at 100% 100%, #bdebdd 0, transparent 60%),
+    linear-gradient(160deg, #ebe5e8 0%, #dbe8fe 38%, #dbe8fe 100%);
+}
+
+
+/* 4. MARCA, SELOS E TÍTULOS ================================================ */
+.dc-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--dc-ink);
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+
+.dc-brand__icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--dc-orange);
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.dc-badge-ssl {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  background: #dce8fb;
+  color: var(--dc-green);
+  font-size: .8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dc-tag {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: .5rem;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.dc-tag--blue  { background: #dce8fb; color: var(--dc-ink); }
+.dc-tag--white { background: rgba(255, 255, 255, .85); color: var(--dc-brown); }
+
+.dc-dot {
+  width: .6rem;
+  height: .6rem;
+  border-radius: 50%;
+  background: var(--dc-green);
+}
+
+.dc-headline {
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.08;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  margin: 0;
+}
+
+.dc-lead {
+  color: var(--dc-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Destaques dentro dos títulos */
+.dc-accent {
+  color: var(--dc-brown);
+  text-decoration: underline wavy #5ed68a;
+  text-decoration-thickness: .1em;
+  text-underline-offset: .12em;
+}
+
+.dc-accent-italic {
+  color: var(--dc-orange);
+  font-style: italic;
+}
+
+.dc-title {
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  margin: 0 0 .35rem;
+}
+
+.dc-subtitle {
+  color: var(--dc-muted);
+  margin: 0;
+}
+
+
+/* 5. ALERTA DE ERRO ======================================================== */
+.dc-alert-error {
+  background: #ffd9d6;
+  color: #8b1111;
+  border: 0;
+  border-radius: .5rem;
+  padding: 1rem 1.1rem;
+  font-size: .9rem;
+}
+
+.dc-alert-error strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.dc-alert-error .bi { font-size: 1.25rem; }
+
+
+/* 6. CAMPOS DE FORMULÁRIO ================================================== */
+.dc-label {
+  display: block;
+  margin-bottom: .4rem;
+  font-weight: 600;
+  font-size: .92rem;
+}
+
+.dc-label--sm {
+  font-weight: 500;
+  font-size: .85rem;
+  color: var(--dc-muted);
+}
+
+/* Grupo: ícone + input (+ botão do olho) dentro de uma "caixa" azul-clara */
+.dc-input-group {
+  display: flex;
+  align-items: center;
+  min-height: 3.25rem;           /* alvo de toque confortável no celular */
+  background: var(--dc-field);
+  border: 2px solid transparent;
+  border-radius: var(--dc-field-radius);
+  transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+.dc-input-group:focus-within {
+  background: #fff;
+  border-color: var(--dc-orange);
+  box-shadow: 0 0 0 .25rem rgba(230, 126, 34, .2);
+}
+
+.dc-input-group > .bi {
+  padding-left: 1rem;
+  color: var(--dc-muted);
+  font-size: 1.05rem;
+}
+
+/* O .form-control do Bootstrap perde borda/fundo: quem desenha a caixa é o grupo */
+.dc-input-group .form-control {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: .75rem 1rem;
+  font-size: 1rem;               /* 16px evita zoom automático no iOS */
+  color: var(--dc-ink);
+}
+
+.dc-input-group .form-control::placeholder { color: #7a8799; }
+.dc-input-group .form-control:focus { background: transparent; box-shadow: none; }
+.dc-input-group .form-control[readonly] { cursor: default; }
+
+.dc-input-group--center .form-control { text-align: center; }
+
+/* Botão do olhinho (sem função por enquanto: ainda não há JavaScript) */
+.dc-eye {
+  border: 0;
+  background: transparent;
+  color: var(--dc-muted);
+  padding: 0 1rem;
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+}
+
+/* Checkbox laranja */
+.form-check-input:checked {
+  background-color: var(--dc-orange);
+  border-color: var(--dc-orange);
+}
+
+.form-check-input:focus {
+  border-color: var(--dc-orange);
+  box-shadow: 0 0 0 .25rem rgba(230, 126, 34, .25);
+}
+
+.form-check-label { color: var(--dc-muted); }
+
+
+/* 7. BOTÕES, LINKS E DIVISOR =============================================== */
+.btn-dc {
+  --bs-btn-color: #fff;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-color: #fff;
+  background: var(--dc-orange-strong);
+  border: 0;
+  border-radius: var(--dc-btn-radius);
+  padding: .95rem 1.25rem;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .02em;
+  color: #fff;
+  box-shadow: 0 12px 24px -12px rgba(217, 111, 18, .8);
+  transition: background-color .15s ease, transform .15s ease;
+}
+
+.btn-dc:hover,
+.btn-dc:focus-visible { background: var(--dc-orange-hover); color: #fff; }
+.btn-dc:active { transform: translateY(1px); }
+
+/* Botões Google / GitHub */
+.btn-dc-soft {
+  background: var(--dc-field);
+  border: 0;
+  border-radius: var(--dc-btn-radius);
+  padding: .8rem 1rem;
+  font-weight: 600;
+  color: var(--dc-ink);
+  transition: background-color .15s ease;
+}
+
+.btn-dc-soft:hover { background: #dbe7fb; color: var(--dc-ink); }
+
+.dc-link {
+  color: var(--dc-brown);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dc-link:hover { color: var(--dc-orange-hover); text-decoration: underline; }
+
+.dc-link--underline {
+  text-decoration: underline;
+  text-decoration-color: var(--dc-orange);
+  text-decoration-thickness: .12em;
+  text-underline-offset: .25em;
+}
+
+/* "OU CONTINUE COM" com linhas dos lados */
+.dc-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--dc-muted);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dc-divider::before,
+.dc-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ead9cc;
+}
+
+
+/* 8. CHIPS DE REQUISITOS E CAIXA DE CEP ==================================== */
+.dc-requirements {
+  background: #f3f7ff;
+  border-radius: .5rem;
+  padding: .9rem 1rem;
+  font-size: .82rem;
+  color: var(--dc-muted);
+}
+
+.dc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .3rem .75rem;
+  border-radius: 999px;
+  background: #e3eaf6;
+  color: var(--dc-muted);
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+/* Quando o requisito for cumprido (o JS vai adicionar esta classe no futuro) */
+.dc-chip.is-ok {
+  background: var(--dc-green-soft);
+  color: var(--dc-green);
+}
+
+.dc-status-api {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--dc-green);
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.dc-help {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin-top: .5rem;
+  color: var(--dc-brown);
+  font-size: .8rem;
+}
+
+
+/* 9. COLUNA LATERAL ======================================================== */
+/* --- Hero do login (foto + barra "pantry.compile()") --- */
+.dc-hero {
+  position: relative;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: #2b3340;           /* aparece caso a foto não carregue */
+}
+
+.dc-hero img {
+  display: block;
+  width: 100%;
+  height: 17rem;
+  object-fit: cover;
+}
+
+.dc-hero__bar {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .75rem;
+  background: rgba(255, 255, 255, .94);
+  border-radius: .5rem;
+  font-size: .9rem;
+}
+
+.dc-hero__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fde3cf;
+  color: var(--dc-brown);
+}
+
+.dc-hero__bar small { display: block; color: var(--dc-green); }
+
+.dc-pill-ready {
+  padding: .25rem .75rem;
+  border-radius: 999px;
+  background: #7be9a2;
+  color: #064d28;
+  font-size: .8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* --- Métricas (+5.000 / Real-time / 100%) --- */
+.dc-stat {
+  height: 100%;
+  background: rgba(255, 255, 255, .85);
+  padding: 1rem;
+  font-size: .8rem;
+  color: var(--dc-muted);
+}
+
+.dc-stat strong {
+  display: block;
+  margin-bottom: .25rem;
+  font-family: var(--dc-font-display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--dc-brown);
+}
+
+.dc-stat--green strong { color: var(--dc-green); }
+
+/* --- Fotos pequenas do cadastro --- */
+.dc-photo {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 5 / 4;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #2b3340;
+}
+
+.dc-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dc-photo figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  padding: 1.5rem .75rem .6rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .7));
+  color: #fff;
+  font-size: .82rem;
+  font-weight: 500;
+}
+
+/* --- Terminal (devcook.meta.json) --- */
+.dc-terminal {
+  background: var(--dc-night);
+  color: #d8e4f5;
+  border-radius: 1.25rem;
+  padding: 1rem 1.25rem;
+  font-family: var(--dc-font-mono);
+  font-size: .8rem;
+  line-height: 1.7;
+  box-shadow: 0 16px 30px -16px rgba(15, 31, 51, .6);
+}
+
+.dc-terminal__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: .5rem;
+  font-size: .78rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.dc-terminal__head span:first-child { display: inline-flex; align-items: center; gap: .5rem; }
+.dc-terminal__head .dc-dot { background: #4ade80; }
+.dc-terminal__ver { color: #86efac; }
+.dc-terminal .t-str { color: #86efac; }
+
+/* --- Lista de benefícios --- */
+.dc-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.dc-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+}
+
+.dc-features__icon {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #cfe3e0;
+  color: var(--dc-green);
+}
+
+.dc-features strong { display: block; font-weight: 600; }
+.dc-features span { display: block; color: var(--dc-muted); font-size: .85rem; line-height: 1.4; }
+
+/* --- Avatares sobrepostos (JS / PY / GO) --- */
+.dc-avatars { display: flex; }
+
+.dc-avatars span {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: -.5rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 700;
+}
+
+.dc-avatars span:first-child { margin-left: 0; background: #9a4a0a; }
+.dc-avatars span:nth-child(2) { background: #0b6b3a; }
+.dc-avatars span:nth-child(3) { background: #d4891a; }
+
+
+/* 10. RODAPÉS ============================================================== */
+.dc-footnote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem 1.5rem;
+  padding: .9rem 1rem;
+  background: #f3f7ff;
+  border-radius: .5rem;
+  font-size: .8rem;
+  color: var(--dc-muted);
+}
+
+.dc-footnote .bi { color: var(--dc-green); }
+
+
+/* 11. ACESSIBILIDADE ======================================================= */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--dc-orange);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+
+/* ==========================================================================
+   PÁGINA PRINCIPAL (index.html)
+   Tudo abaixo só é usado pela home; login e cadastro ignoram estas classes.
+   ========================================================================== */
+
+/* Na home, campos e botões são arredondados (pílula), como no design */
+.page-home {
+  --dc-field-radius: 999px;
+  --dc-btn-radius: 999px;
+}
+
+/* Cartão branco genérico (filtros, cabeçalho da lista, paginação) */
+.dc-card {
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 12px 32px -22px rgba(15, 31, 51, .35);
+}
+
+@media (min-width: 768px) {
+  .dc-card { padding: 1.5rem; }
+}
+
+/* Variações pequenas de componentes já existentes */
+.dc-brand--sm { font-size: 1.15rem; }
+.dc-brand--sm .dc-brand__icon { width: 2.25rem; height: 2.25rem; font-size: 1.05rem; }
+
+.dc-input-group--sm { min-height: 2.5rem; }
+.dc-input-group--sm .form-control { padding: .4rem .75rem; font-size: .9rem; }
+
+.dc-input-group .form-select {
+  flex: 1 1 auto;
+  min-width: 0;
+  background-color: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: .5rem 2rem .5rem .5rem;
+  font-size: .9rem;
+  color: var(--dc-ink);
+  cursor: pointer;
+}
+
+.dc-tag--mint { background: #dff5e8; color: var(--dc-green); font-size: .72rem; }
+
+
+/* 12. HOME: CABEÇALHO E NAVEGAÇÃO ========================================== */
+.dc-header {
+  background: #fff;
+  box-shadow: 0 1px 0 var(--dc-line), 0 10px 24px -22px rgba(15, 31, 51, .5);
+}
+
+.dc-header__bar {
+  display: flex;
+  flex-wrap: wrap;               /* no celular o menu cai para a linha de baixo */
+  align-items: center;
+  gap: .25rem 1rem;
+  padding-block: .75rem .25rem;
+}
+
+.dc-header__actions {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-left: auto;
+}
+
+/* Menu: rolagem horizontal no celular (sem precisar de JavaScript) */
+.dc-nav-wrap { order: 3; width: 100%; }
+
+.dc-nav {
+  display: flex;
+  gap: .25rem;
+  margin: 0;
+  padding: .25rem 0 .6rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.dc-nav::-webkit-scrollbar { display: none; }
+
+.dc-nav a {
+  display: block;
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  color: var(--dc-ink);
+  font-size: .9rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dc-nav a:hover { background: var(--dc-field); }
+
+.dc-nav a[aria-current="page"] {
+  background: #dce8fb;
+  color: var(--dc-brown);
+  font-weight: 600;
+}
+
+.dc-header__search { display: none; width: 100%; max-width: 22rem; }
+
+.dc-icon-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--dc-ink);
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+
+.dc-icon-btn:hover { background: var(--dc-field); color: var(--dc-ink); }
+.dc-icon-btn--avatar { background: #9a4a0a; color: #fff; }
+.dc-icon-btn--avatar:hover { background: #7d3b06; color: #fff; }
+
+@media (min-width: 992px) {
+  .dc-header__bar { flex-wrap: nowrap; padding-block: .75rem; gap: 1.5rem; }
+  .dc-nav-wrap { order: 2; width: auto; }
+  .dc-nav { padding: 0; overflow: visible; }
+  .dc-header__search { display: flex; order: 3; margin-left: auto; }
+  .dc-header__actions { order: 4; margin-left: 0; }
+}
+
+
+/* 13. HOME: HERO E BUSCA POR INGREDIENTES ================================== */
+.dc-home-hero {
+  padding: 2.5rem 0 3rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 0% 100%, #d9f5e6 0, transparent 45%),
+    linear-gradient(#fff, var(--dc-surface));
+}
+
+@media (min-width: 768px) {
+  .dc-home-hero { padding: 4rem 0 4rem; }
+}
+
+.dc-home-hero .dc-headline { font-size: clamp(2rem, 6vw, 3.5rem); margin-block: 1rem; }
+.dc-home-hero .dc-lead { max-width: 38rem; margin-inline: auto; }
+
+/* Caixa de busca com a "stack" de ingredientes */
+.dc-pantry {
+  max-width: 50rem;
+  margin: 2rem auto 1.25rem;
+  padding: .75rem;
+  text-align: left;
+  background: #fff;
+  border-radius: 1.75rem;
+  box-shadow: 0 20px 44px -26px rgba(15, 31, 51, .45);
+}
+
+.dc-pantry__row {
+  display: flex;
+  flex-direction: column;        /* celular: botão embaixo do campo */
+  gap: .5rem;
+}
+
+.dc-pantry__row .dc-input-group { flex: 1 1 auto; }
+.dc-pantry__row .btn-dc { padding: .8rem 1.5rem; white-space: nowrap; }
+
+@media (min-width: 576px) {
+  .dc-pantry__row { flex-direction: row; align-items: center; }
+}
+
+.dc-pantry .dc-input-group > .bi { color: var(--dc-orange-strong); }
+
+.dc-stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem .5rem .25rem;
+  font-size: .78rem;
+  color: var(--dc-muted);
+}
+
+.dc-chip-ing {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .3rem .5rem .3rem .75rem;
+  border-radius: 999px;
+  background: var(--dc-green-soft);
+  color: var(--dc-green);
+  font-size: .78rem;
+  font-weight: 500;
+}
+
+.dc-chip-ing button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  line-height: 1;
+}
+
+.dc-stack__clear {
+  margin-left: auto;
+  color: var(--dc-muted);
+  font-size: .78rem;
+}
+
+/* Presets populares */
+.dc-presets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  font-size: .8rem;
+  color: var(--dc-muted);
+}
+
+.dc-preset {
+  padding: .4rem .95rem;
+  border: 0;
+  border-radius: 999px;
+  background: #dce8fb;
+  color: var(--dc-ink);
+  font-size: .85rem;
+  font-weight: 500;
+  transition: background-color .15s ease;
+}
+
+.dc-preset:hover { background: #cddcf6; }
+
+.dc-preset.is-active {
+  background: var(--dc-orange-strong);
+  color: #fff;
+  font-weight: 600;
+}
+
+
+/* 14. HOME: FILTROS ======================================================== */
+.dc-main { padding-block: 1.5rem 3rem; }
+
+.dc-filters__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dc-filters__head h2 {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.dc-filters__head .bi { color: var(--dc-orange); }
+
+/* <summary> só aparece no celular/tablet: serve para abrir e fechar os filtros */
+.dc-filters summary {
+  margin-top: .75rem;
+  padding: .55rem .9rem;
+  border-radius: 999px;
+  background: var(--dc-field);
+  color: var(--dc-brown);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.dc-filters summary::-webkit-details-marker { display: none; }
+
+@media (min-width: 992px) {
+  .dc-filters summary { display: none; }
+}
+
+.dc-filter-title {
+  margin: 1.5rem 0 .6rem;
+  color: var(--dc-muted);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.dc-filter-title span { color: var(--dc-brown); letter-spacing: 0; }
+
+/* Linha de checkbox: caixa + texto + contador à direita */
+.dc-check {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin: 0;
+  padding: .35rem 0;
+  cursor: pointer;
+}
+
+.dc-check .form-check-input { flex: none; margin: 0; }
+
+.dc-count {
+  margin-left: auto;
+  color: var(--dc-muted);
+  font-family: var(--dc-font-mono);
+  font-size: .72rem;
+}
+
+/* Slider de tempo */
+.dc-range { height: 1.5rem; }
+.dc-range::-webkit-slider-runnable-track { height: .35rem; border-radius: 999px; background: #dce8fb; }
+.dc-range::-moz-range-track { height: .35rem; border-radius: 999px; background: #dce8fb; }
+.dc-range::-webkit-slider-thumb,
+.dc-range::-webkit-slider-thumb:active { width: 1.1rem; height: 1.1rem; margin-top: -.375rem; border: 0; background: var(--dc-orange); }
+.dc-range::-moz-range-thumb,
+.dc-range::-moz-range-thumb:active { width: 1.1rem; height: 1.1rem; border: 0; background: var(--dc-orange); }
+.dc-range:focus::-webkit-slider-thumb { box-shadow: 0 0 0 .25rem rgba(230, 126, 34, .25); }
+.dc-range:focus::-moz-range-thumb { box-shadow: 0 0 0 .25rem rgba(230, 126, 34, .25); }
+
+.dc-range-scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--dc-muted);
+  font-size: .72rem;
+}
+
+/* Botões segmentados (Fácil | Médio | Difícil) feitos com <input type="radio"> */
+.dc-seg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  border-radius: .5rem;
+}
+
+.dc-seg__btn {
+  padding: .55rem .25rem;
+  background: var(--dc-field);
+  color: var(--dc-muted);
+  font-size: .8rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn-check:checked + .dc-seg__btn {
+  background: var(--dc-orange-strong);
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-check:focus-visible + .dc-seg__btn,
+.btn-check:focus-visible + .dc-view__btn {
+  outline: 3px solid var(--dc-orange);
+  outline-offset: -3px;
+}
+
+/* Caixa "Combinações encontradas" */
+.dc-found {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #eef4ff;
+  border-radius: .75rem;
+  color: var(--dc-muted);
+  font-size: .78rem;
+}
+
+.dc-found strong {
+  display: block;
+  color: var(--dc-brown);
+  font-family: var(--dc-font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.dc-found__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #7be9a2;
+  color: #064d28;
+}
+
+
+/* 15. HOME: LISTA, CARDS E PAGINAÇÃO ======================================= */
+.dc-results-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dc-results-head h2 {
+  display: inline;
+  margin: 0;
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3.5vw, 1.75rem);
+}
+
+.dc-badge-count {
+  display: inline-block;
+  margin-left: .35rem;
+  padding: .2rem .65rem;
+  border-radius: 999px;
+  background: #dce8fb;
+  color: var(--dc-muted);
+  font-size: .72rem;
+  vertical-align: middle;
+}
+
+.dc-results-head p { margin: .25rem 0 0; color: var(--dc-muted); font-size: .8rem; }
+
+.dc-results-tools { display: flex; align-items: center; gap: .5rem; }
+
+.dc-view {
+  display: flex;
+  padding: .2rem;
+  border-radius: 999px;
+  background: var(--dc-field);
+}
+
+.dc-view__btn {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--dc-muted);
+  cursor: pointer;
+}
+
+.btn-check:checked + .dc-view__btn { background: #fff; color: var(--dc-brown); box-shadow: 0 2px 6px rgba(15, 31, 51, .15); }
+
+/* Card de receita */
+.dc-recipe {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 1.5rem;
+  box-shadow: 0 12px 32px -22px rgba(15, 31, 51, .35);
+}
+
+.dc-recipe__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #2b3340;
+}
+
+.dc-recipe__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.dc-fav {
+  position: absolute;
+  top: .75rem;
+  right: .75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .92);
+  color: var(--dc-brown);
+}
+
+.dc-fav:hover { background: #fff; color: var(--dc-orange-strong); }
+
+.dc-recipe__tags {
+  position: absolute;
+  left: .75rem;
+  right: .75rem;
+  bottom: .75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.dc-tagchip {
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .93);
+  font-size: .7rem;
+  font-weight: 600;
+}
+
+.dc-recipe__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.dc-recipe__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .78rem;
+}
+
+.dc-rating { display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; }
+.dc-rating .bi { color: var(--dc-orange); }
+.dc-rating small { color: var(--dc-muted); font-weight: 400; }
+.dc-kcal { color: var(--dc-muted); font-family: var(--dc-font-mono); font-size: .75rem; }
+
+.dc-recipe__title {
+  margin: .6rem 0 .4rem;
+  font-family: var(--dc-font-display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  letter-spacing: -.01em;
+}
+
+.dc-recipe__desc {
+  margin: 0;
+  color: var(--dc-muted);
+  font-size: .85rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.dc-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+  margin: .9rem 0 1rem;
+  padding: .5rem .75rem;
+  background: #f3f7ff;
+  border-radius: .5rem;
+  color: var(--dc-muted);
+  font-family: var(--dc-font-mono);
+  font-size: .75rem;
+}
+
+.dc-meta span { display: inline-flex; align-items: center; gap: .4rem; }
+.dc-recipe__body .btn-dc-soft { margin-top: auto; }
+
+/* Paginação */
+.dc-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  color: var(--dc-muted);
+  font-size: .8rem;
+}
+
+.dc-pager {
+  display: flex;
+  gap: .4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dc-pager a {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #dce8fb;
+  color: var(--dc-ink);
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.dc-pager a:hover { background: #cddcf6; }
+.dc-pager .is-active a { background: var(--dc-orange-strong); color: #fff; }
+.dc-pager .is-disabled a { opacity: .5; pointer-events: none; }
+
+
+/* 16. HOME: RODAPÉ ========================================================= */
+.dc-footer {
+  padding: 2rem 0;
+  background: #fff;
+  border-top: 1px solid var(--dc-line);
+  font-size: .85rem;
+  color: var(--dc-muted);
+}
+
+.dc-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dc-footer__links a {
+  color: var(--dc-ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dc-footer__links a:hover { color: var(--dc-brown); text-decoration: underline; }

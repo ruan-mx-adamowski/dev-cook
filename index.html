@@ -1,66 +1,383 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade Bootstrap</title>
-    <!-- Inclua os estilos CSS do Bootstrap -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevCook — Receitas com o que você tem em casa</title>
+  <meta name="description" content="Digite os ingredientes da sua geladeira e encontre receitas compatíveis no DevCook.">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS gerado pelo Sass (scss/main.scss) -->
+  <link href="assets/css/styles.css" rel="stylesheet"> 
 </head>
-<body>
-    <!-- Inclua os scripts JavaScript do Bootstrap (junto com Popper.js) -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<div class="container">
-    <!-- Primeira Linha: Três Colunas com Largura Automática -->
-    <div class="row">
-        <div class="col text-bg-info">Primeira Coluna</div>
-        <div class="col text-bg-danger">Segunda Coluna</div>
-        <div class="col d-none d-md-block text-bg-warning">Terceira Coluna (Oculta em XS e SM)</div>
-    </div>
-    <!-- Segunda Linha: Coluna Única -->
-    <div class="row">
-        <div class="col-12 text-bg-secondary">Coluna Única da Segunda Linha</div>
-    </div>
-    <!-- Terceira Linha: Tamanhos Fixos, Offset e Order -->
-    <div class="row">
-        <!-- Coluna com offset -->
-        <div class="col-md-4 offset-md-2 text-bg-info">Coluna com Offset</div>
-        <!-- Coluna com ordem personalizada -->
-        <div class="col-md-4 order-md-3 text-bg-danger">Coluna com Ordem 3</div>
-        <!-- Coluna padrão -->
-        <div class="col-md-4 order-md-1 text-bg-warning">Coluna com Ordem 1</div>
-    </div>
-<div class="col">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Abrir Modal
-    </button>
-</div>
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Este é o conteúdo do modal.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            </div>
+<body class="page-home">
+  <a class="visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+  <header class="dc-header">
+    <div class="container">
+      <div class="dc-header__bar">
+        <a href="index.html" class="dc-brand"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+        <nav class="dc-nav-wrap" aria-label="Principal">
+          <ul class="dc-nav">
+            <li><a href="index.html" aria-current="page">Explorar</a></li>
+            <li><a href="minhas-receitas.html">Minhas Receitas</a></li>
+            <li><a href="criar-receita.html">Criar Receita</a></li>
+            <li><a href="#">Sobre</a></li>
+          </ul>
+        </nav>
+        <form class="dc-header__search" role="search" action="#">
+          <div class="dc-input-group dc-input-group--sm w-100">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <label for="buscaTopo" class="visually-hidden">Buscar por ingredientes</label>
+            <input type="search" id="buscaTopo" class="form-control" placeholder="Ingredientes (ex: alho, tomate, azeite)...">
+          </div>
+        </form>
+        <div class="dc-header__actions">
+          <button type="button" class="dc-icon-btn" aria-label="Notificações"><i class="bi bi-bell"></i></button>
+          <a href="login.html" class="dc-icon-btn dc-icon-btn--avatar" aria-label="Minha conta"><i class="bi bi-person"></i></a>
         </div>
+      </div>
     </div>
-</div>
-<div class="col">
-    <div class="card">
-        <img src="https://placehold.co/150x100" class="card-img-top img-fluid" alt="Imagem">
-        <div class="card-body">
-            <h5 class="card-title">Título do Card</h5>
-            <p class="card-text">Este é um exemplo de texto no corpo do card.</p>
+  </header>
+
+  <main id="conteudo">
+    <section class="dc-home-hero">
+      <div class="container">
+        <span class="dc-tag dc-tag--mint"><span class="dc-dot" aria-hidden="true"></span> Algoritmo de despensa &bull; v2.4</span>
+        <h1 class="dc-headline">O que tem na sua bancada hoje?</h1>
+        <p class="dc-lead">Insira os ingredientes disponíveis na geladeira. O motor DevCook compila as melhores receitas em tempo de execução culinária.</p>
+
+        <form class="dc-pantry" action="#">
+          <div class="dc-pantry__row">
+            <div class="dc-input-group">
+              <i class="bi bi-basket2" aria-hidden="true"></i>
+              <label for="ingrediente" class="visually-hidden">Ingrediente</label>
+              <input type="text" id="ingrediente" class="form-control" placeholder="Digite os ingredientes que você tem na geladeira (ex: tomate, ovos, alho)">
+            </div>
+            <button type="submit" class="btn btn-dc d-inline-flex align-items-center justify-content-center gap-2">Adicionar <i class="bi bi-plus-lg"></i></button>
+          </div>
+          <div class="dc-stack">
+            <span class="d-inline-flex align-items-center gap-1"><i class="bi bi-check-circle"></i> Stack ativa:</span>
+            <span class="dc-chip-ing">Tomate maduro <button type="button" aria-label="Remover tomate maduro"><i class="bi bi-x"></i></button></span>
+            <span class="dc-chip-ing">Ovos caipiras <button type="button" aria-label="Remover ovos caipiras"><i class="bi bi-x"></i></button></span>
+            <span class="dc-chip-ing">Alho laminado <button type="button" aria-label="Remover alho laminado"><i class="bi bi-x"></i></button></span>
+            <span class="dc-chip-ing">Parmesão curado <button type="button" aria-label="Remover parmesão curado"><i class="bi bi-x"></i></button></span>
+            <a href="#" class="dc-stack__clear">Limpar stack</a>
+          </div>
+        </form>
+
+        <div class="dc-presets" role="group" aria-label="Presets populares">
+          <span>Presets populares:</span>
+          <button type="button" class="dc-preset">Massas</button>
+          <button type="button" class="dc-preset">Sobremesas</button>
+          <button type="button" class="dc-preset is-active" aria-pressed="true">Vegano</button>
+          <button type="button" class="dc-preset">Low-Carb</button>
+          <button type="button" class="dc-preset">Rápido (&lt;20m)</button>
+          <button type="button" class="dc-preset">Frutos do Mar</button>
+          <button type="button" class="dc-preset">Aves</button>
+          
         </div>
+      </div>
+    </section>
+
+    <div class="container dc-main">
+      <div class="row g-4">
+        <aside class="col-12 col-lg-3" aria-label="Filtros">
+          <div class="dc-card">
+            <div class="dc-filters__head"><h2><i class="bi bi-sliders" aria-hidden="true"></i> Filtros</h2><a href="#" class="dc-link small">Resetar</a></div>
+            <details class="dc-filters" open>
+              <summary>Mostrar / ocultar filtros</summary>
+              <h3 class="dc-filter-title">Categorias</h3>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="categoria" value="pratos" checked> <span>Pratos Principais</span> <small class="dc-count">142</small></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="categoria" value="massas"> <span>Massas Artesanais</span> <small class="dc-count">58</small></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="categoria" value="sobremesas" checked> <span>Sobremesas &amp; Doces</span> <small class="dc-count">39</small></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="categoria" value="panificação"> <span>Panificação &amp; Pães</span> <small class="dc-count">24</small></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="categoria" value="sopas"> <span>Sopas &amp; Caldos</span> <small class="dc-count">17</small></label>
+              <h3 class="dc-filter-title d-flex justify-content-between"><label for="tempoMax" class="m-0">Tempo máximo</label><span>45 min</span></h3>
+              <input type="range" id="tempoMax" name="tempoMax" class="form-range dc-range" min="15" max="90" step="15" value="45">
+              <div class="dc-range-scale" aria-hidden="true"><span>&lt;15m</span><span>30m</span><span>1h</span><span>&gt;1h30m</span></div>
+              <h3 class="dc-filter-title">Complexidade</h3>
+              <div class="dc-seg" role="radiogroup" aria-label="Complexidade">
+                <input type="radio" class="btn-check" name="nivel" id="nivelFacil" value="facil" checked><label class="dc-seg__btn" for="nivelFacil">Fácil</label>
+                <input type="radio" class="btn-check" name="nivel" id="nivelMedio" value="medio"><label class="dc-seg__btn" for="nivelMedio">Médio</label>
+                <input type="radio" class="btn-check" name="nivel" id="nivelDificil" value="dificil"><label class="dc-seg__btn" for="nivelDificil">Difícil</label>
+                
+              </div>
+              <h3 class="dc-filter-title">Destaques nutricionais</h3>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="nutricao" value="baixa-caloria" checked> <span>Baixa Caloria (&lt;450 kcal)</span></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="nutricao" value="alta-proteina" checked> <span>Alta Proteína (&gt;25g)</span></label>
+              <label class="dc-check"><input class="form-check-input" type="checkbox" name="nutricao" value="sem-gluten"> <span>Sem Glúten (Gluten-Free)</span></label>
+              <div class="dc-found"><div>Combinações encontradas<strong>18 receitas</strong></div><span class="dc-found__icon"><i class="bi bi-stars" aria-hidden="true"></i></span></div>
+            </details>
+          </div>
+        </aside>
+
+        <section class="col-12 col-lg-9" aria-labelledby="titulo-destaques">
+          <div class="dc-card dc-results-head mb-3">
+            <div>
+              <h2 id="titulo-destaques">Receitas em Destaque</h2>
+              <span class="dc-badge-count">6 de 18 pratos</span>
+              <p>Otimizadas para rapidez de preparo e máxima preservação de sabor.</p>
+            </div>
+            <div class="dc-results-tools">
+              <div class="dc-input-group dc-input-group--sm">
+                <i class="bi bi-sort-down" aria-hidden="true"></i>
+                <label for="ordenar" class="visually-hidden">Ordenar por</label>
+                <select id="ordenar" class="form-select"><option selected>Mais Populares</option><option>Menor tempo</option><option>Menos calorias</option><option>Melhor avaliadas</option></select>
+              </div>
+              <div class="dc-view" role="radiogroup" aria-label="Modo de exibição">
+                <input type="radio" class="btn-check" name="visao" id="visaoGrade" value="grade" checked>
+                <label class="dc-view__btn" for="visaoGrade" title="Grade"><i class="bi bi-grid"></i><span class="visually-hidden">Grade</span></label>
+                <input type="radio" class="btn-check" name="visao" id="visaoLista" value="lista">
+                <label class="dc-view__btn" for="visaoLista" title="Lista"><i class="bi bi-list-ul"></i><span class="visually-hidden">Lista</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Prato de espaguete à carbonara" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Classic Roman Carbonara"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Massa</span><span class="dc-tagchip">Clássico Italiano</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.9 <small>(184)</small></span><span class="dc-kcal">650 kcal</span></div>
+                  <h3 class="dc-recipe__title">Classic Roman Carbonara</h3>
+                  <p class="dc-recipe__desc">Autêntico preparo romano com guanciale tostado, gemas e pecorino.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 25m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-1">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Bowl com batata-doce assada e legumes" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Roasted Sweet Potato Bowl"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Vegano</span><span class="dc-tagchip">Saudável</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.7 <small>(92)</small></span><span class="dc-kcal">420 kcal</span></div>
+                  <h3 class="dc-recipe__title">Roasted Sweet Potato Bowl</h3>
+                  <p class="dc-recipe__desc">Batata-doce caramelizada com especiarias, grão-de-bico e tahine.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 40m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-2">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Torta de chocolate com flor de sal" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Sea Salt Chocolate Tart"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Sobremesa</span><span class="dc-tagchip">Gourmet</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 5.0 <small>(310)</small></span><span class="dc-kcal">540 kcal</span></div>
+                  <h3 class="dc-recipe__title">Sea Salt Chocolate Tart</h3>
+                  <p class="dc-recipe__desc">Torta de ganache 70% cacau de textura acetinada com cristais de sal.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 1h 20m</span><span><i class="bi bi-reception-4"></i> Difícil</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-3">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Salmão grelhado com aspargos" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Salmão Grelhado com Aspargos"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Low-Carb</span><span class="dc-tagchip">Proteico</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.8 <small>(76)</small></span><span class="dc-kcal">380 kcal</span></div>
+                  <h3 class="dc-recipe__title">Salmão Grelhado com Aspargos</h3>
+                  <p class="dc-recipe__desc">Lombo de salmão selado na perfeição, pele crocante, servido com aspargos.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 20m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-4">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Risoto de cogumelos selvagens" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Risoto de Cogumelos Selvagens"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Vegetariano</span><span class="dc-tagchip">Conforto</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.9 <small>(140)</small></span><span class="dc-kcal">490 kcal</span></div>
+                  <h3 class="dc-recipe__title">Risoto de Cogumelos Selvagens</h3>
+                  <p class="dc-recipe__desc">Arroz arbóreo mantecado lentamente com caldo caseiro e mix de cogumelos.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 35m prep</span><span><i class="bi bi-reception-2"></i> Médio</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-5">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Tacos de frango desfiado" loading="lazy">
+                  <button type="button" class="dc-fav" aria-label="Favoritar Tacos Rápidos de Frango Desfiado"><i class="bi bi-star"></i></button>
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Rápido</span><span class="dc-tagchip">Mexicano</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.6 <small>(63)</small></span><span class="dc-kcal">450 kcal</span></div>
+                  <h3 class="dc-recipe__title">Tacos Rápidos de Frango Desfiado</h3>
+                  <p class="dc-recipe__desc">Tortilhas de milho macias com frango suculento desfiado e molho fresco.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 15m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+                  <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2" data-bs-toggle="modal" data-bs-target="#modal-6">Ver Modo de Preparo <i class="bi bi-arrow-right"></i></button>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <nav class="dc-card dc-pagination mt-4" aria-label="Paginação das receitas">
+            <span>Mostrando 6 receitas compiladas de 18</span>
+            <ul class="dc-pager">
+              <li class="is-disabled"><a href="#" aria-label="Página anterior" tabindex="-1"><i class="bi bi-chevron-left"></i></a></li>
+              <li class="is-active"><a href="#" aria-current="page">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#" aria-label="Próxima página"><i class="bi bi-chevron-right"></i></a></li>
+            </ul>
+          </nav>
+        </section>
+      </div>
     </div>
-</div>
+  </main>
+
+  <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="modal-1-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-1-t">Classic Roman Carbonara</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Prato de espaguete à carbonara" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Autêntico preparo romano com guanciale tostado, gemas e pecorino.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 650 kcal</span><span><i class="bi bi-stopwatch"></i> 25m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+              <h3>Ingredientes</h3><ul><li>350 g de spaghetti</li><li>150 g de guanciale em cubos</li><li>4 gemas + 1 ovo inteiro</li><li>80 g de pecorino romano ralado</li><li>Pimenta-do-reino moída na hora</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Cozinhe a massa em água com pouco sal até ficar al dente.</li><li>Doure o guanciale em fogo baixo até ficar crocante.</li><li>Misture gemas, ovo e pecorino em uma tigela.</li><li>Junte tudo fora do fogo com um pouco da água do cozimento e sirva.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="modal-2-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-2-t">Roasted Sweet Potato Bowl</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Bowl com batata-doce assada e legumes" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Batata-doce caramelizada com especiarias, grão-de-bico e tahine.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 420 kcal</span><span><i class="bi bi-stopwatch"></i> 40m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+              <h3>Ingredientes</h3><ul><li>2 batatas-doces em cubos</li><li>1 xícara de grão-de-bico cozido</li><li>1 abacate fatiado</li><li>2 colheres de tahine</li><li>Suco de 1 limão</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Tempere a batata e o grão-de-bico e asse a 200 °C por 30 minutos.</li><li>Misture tahine, limão e água morna para o molho.</li><li>Monte a tigela e regue com o molho.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-3" tabindex="-1" aria-labelledby="modal-3-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-3-t">Sea Salt Chocolate Tart</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Torta de chocolate com flor de sal" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Torta de ganache 70% cacau de textura acetinada com cristais de sal.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 540 kcal</span><span><i class="bi bi-stopwatch"></i> 1h 20m</span><span><i class="bi bi-reception-4"></i> Difícil</span></div>
+              <h3>Ingredientes</h3><ul><li>200 g de farinha de amêndoas</li><li>40 g de cacau em pó</li><li>50 g de manteiga gelada</li><li>250 g de chocolate 70%</li><li>200 ml de creme de leite</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Misture farinha, cacau e manteiga e asse a massa a 180 °C por 12 minutos.</li><li>Aqueça o creme e despeje sobre o chocolate picado.</li><li>Cubra a massa com o ganache e gele por 3 horas.</li><li>Finalize com flor de sal.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-4" tabindex="-1" aria-labelledby="modal-4-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-4-t">Salmão Grelhado com Aspargos</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Salmão grelhado com aspargos" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Lombo de salmão selado na perfeição, pele crocante, servido com aspargos.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 380 kcal</span><span><i class="bi bi-stopwatch"></i> 20m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+              <h3>Ingredientes</h3><ul><li>2 filés de salmão com pele</li><li>1 maço de aspargos</li><li>2 dentes de alho</li><li>2 colheres de manteiga</li><li>Limão siciliano, sal e pimenta</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Seque e tempere o salmão.</li><li>Sele com a pele para baixo por 4 minutos.</li><li>Vire e junte manteiga, alho e aspargos por mais 3 minutos.</li><li>Sirva com limão.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-5" tabindex="-1" aria-labelledby="modal-5-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-5-t">Risoto de Cogumelos Selvagens</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Risoto de cogumelos selvagens" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Arroz arbóreo mantecado lentamente com caldo caseiro e mix de cogumelos.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 490 kcal</span><span><i class="bi bi-stopwatch"></i> 35m prep</span><span><i class="bi bi-reception-2"></i> Médio</span></div>
+              <h3>Ingredientes</h3><ul><li>1 xícara de arroz arbóreo</li><li>200 g de cogumelos</li><li>1/2 xícara de vinho branco</li><li>1 litro de caldo de legumes</li><li>50 g de parmesão</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Salteie os cogumelos e reserve.</li><li>Refogue a cebola, toste o arroz e adicione o vinho.</li><li>Junte o caldo aos poucos, mexendo por cerca de 18 minutos.</li><li>Finalize com manteiga, parmesão e cogumelos.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-6" tabindex="-1" aria-labelledby="modal-6-t" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
+      <div class="modal-content dc-modal">
+        <div class="modal-header"><h2 class="modal-title fs-4" id="modal-6-t">Tacos Rápidos de Frango Desfiado</h2><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button></div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-5"><img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=600" srcset="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 768px) 30vw, 90vw" width="600" height="450" alt="Tacos de frango desfiado" loading="lazy"></div>
+            <div class="col-md-7">
+              <p class="text-secondary">Tortilhas de milho macias com frango suculento desfiado e molho fresco.</p>
+              <div class="dc-meta"><span><i class="bi bi-fire"></i> 450 kcal</span><span><i class="bi bi-stopwatch"></i> 15m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+              <h3>Ingredientes</h3><ul><li>6 tortilhas de milho</li><li>250 g de frango desfiado</li><li>1 abacate para o guacamole</li><li>1 tomate picado</li><li>Páprica e cominho</li></ul>
+            </div>
+          </div>
+          <h3>Modo de preparo</h3><ol><li>Aqueça o frango com páprica e cominho.</li><li>Aqueça as tortilhas.</li><li>Monte com guacamole, frango e tomate.</li></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="dc-footer">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <a href="index.html" class="dc-brand dc-brand--sm"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+          <span>&mdash; Gastronomia orientada a código</span>
+        </div>
+        <ul class="dc-footer__links">
+          <li><a href="https://spoonacular.com/food-api" target="_blank" rel="noopener">Spoonacular API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://viacep.com.br" target="_blank" rel="noopener">ViaCEP API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://github.com/ruan-mx-adamowski/projeto-dev_cook" target="_blank" rel="noopener">Repositório GitHub <i class="bi bi-github"></i></a></li>
+        </ul>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2 small">
+        <span>&copy; 2026 DevCook. Todos os direitos reservados. Feito com amor e código.</span>
+        <span>v1.0.0-rc2 &bull; Kitchen Engine</span>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

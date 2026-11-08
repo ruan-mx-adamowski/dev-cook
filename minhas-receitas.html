@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevCook — Minhas Receitas</title>
+  <meta name="description" content="Veja e gerencie as receitas autorais que você cadastrou no DevCook.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS gerado pelo Sass (scss/main.scss) -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="page-home">
+  <a class="visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+  <header class="dc-header">
+    <div class="container">
+      <div class="dc-header__bar">
+        <a href="index.html" class="dc-brand"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+        <nav class="dc-nav-wrap" aria-label="Principal">
+          <ul class="dc-nav">
+            <li><a href="index.html">Explorar</a></li>
+            <li><a href="minhas-receitas.html" aria-current="page">Minhas Receitas</a></li>
+            <li><a href="criar-receita.html">Criar Receita</a></li>
+            <li><a href="#">Sobre</a></li>
+          </ul>
+        </nav>
+        <form class="dc-header__search" role="search" action="#">
+          <div class="dc-input-group dc-input-group--sm w-100">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            <label for="buscaTopo" class="visually-hidden">Buscar por ingredientes</label>
+            <input type="search" id="buscaTopo" class="form-control" placeholder="Ingredientes (ex: alho, tomate, azeite)...">
+          </div>
+        </form>
+        <div class="dc-header__actions">
+          <button type="button" class="dc-icon-btn" aria-label="Notificações"><i class="bi bi-bell"></i></button>
+          <a href="login.html" class="dc-icon-btn dc-icon-btn--avatar" aria-label="Minha conta"><i class="bi bi-person"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container dc-main">
+    <section class="dc-page-hero d-flex flex-wrap justify-content-between align-items-end gap-3" aria-labelledby="titulo-minhas">
+      <div>
+        <h1 id="titulo-minhas" class="dc-title">Minhas Receitas</h1>
+        <p class="dc-subtitle">Todas as receitas que você cadastrou na plataforma.</p>
+      </div>
+      <a href="criar-receita.html" class="btn btn-dc d-inline-flex align-items-center gap-2"><i class="bi bi-plus-lg"></i> Nova receita</a>
+    </section>
+
+    <!-- Exemplos estáticos. Com JavaScript, esta grade será preenchida com um GET no JSON Server. -->
+    <section aria-label="Lista de receitas autorais">
+      <div id="listaMinhasReceitas" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Salmão grelhado com aspargos" loading="lazy">
+                  
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Autoral</span><span class="dc-tagchip">Low-Carb</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.8 <small>(76)</small></span><span class="dc-kcal">380 kcal</span></div>
+                  <h3 class="dc-recipe__title">Salmão Grelhado com Aspargos</h3>
+                  <p class="dc-recipe__desc">Lombo de salmão selado na perfeição, pele crocante, servido com aspargos.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 20m prep</span><span><i class="bi bi-reception-1"></i> Fácil</span></div>
+                  <div class="dc-own-actions"><button type="button" class="btn btn-dc-soft"><i class="bi bi-pencil"></i> Editar</button><button type="button" class="btn btn-dc-danger"><i class="bi bi-trash"></i> Excluir</button></div>
+                </div>
+              </article>
+            </div>
+            <div class="col">
+              <article class="dc-recipe">
+                <div class="dc-recipe__media">
+                  <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=700" srcset="https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=400 400w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=700 700w, https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&fm=webp&q=75&w=1000 1000w" sizes="(min-width: 1200px) 25vw, (min-width: 768px) 45vw, 100vw" width="700" height="394" alt="Risoto de cogumelos selvagens" loading="lazy">
+                  
+                  <div class="dc-recipe__tags"><span class="dc-tagchip">Autoral</span><span class="dc-tagchip">Vegetariano</span></div>
+                </div>
+                <div class="dc-recipe__body">
+                  <div class="dc-recipe__top"><span class="dc-rating"><i class="bi bi-star"></i> 4.9 <small>(140)</small></span><span class="dc-kcal">490 kcal</span></div>
+                  <h3 class="dc-recipe__title">Risoto de Cogumelos Selvagens</h3>
+                  <p class="dc-recipe__desc">Arroz arbóreo mantecado lentamente com caldo caseiro e mix de cogumelos.</p>
+                  <div class="dc-meta"><span><i class="bi bi-stopwatch"></i> 35m prep</span><span><i class="bi bi-reception-2"></i> Médio</span></div>
+                  <div class="dc-own-actions"><button type="button" class="btn btn-dc-soft"><i class="bi bi-pencil"></i> Editar</button><button type="button" class="btn btn-dc-danger"><i class="bi bi-trash"></i> Excluir</button></div>
+                </div>
+              </article>
+            </div>
+      </div>
+      <div id="semReceitas" class="dc-card dc-empty mt-3" hidden>
+        <i class="bi bi-journal-plus" aria-hidden="true"></i>
+        <h2 class="h5 mt-2">Você ainda não cadastrou receitas</h2>
+        <p class="text-secondary">Que tal publicar sua primeira criação?</p>
+        <a href="criar-receita.html" class="btn btn-dc">Criar receita</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="dc-footer">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <a href="index.html" class="dc-brand dc-brand--sm"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+          <span>&mdash; Gastronomia orientada a código</span>
+        </div>
+        <ul class="dc-footer__links">
+          <li><a href="https://spoonacular.com/food-api" target="_blank" rel="noopener">Spoonacular API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://viacep.com.br" target="_blank" rel="noopener">ViaCEP API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://github.com/ruan-mx-adamowski/projeto-dev_cook" target="_blank" rel="noopener">Repositório GitHub <i class="bi bi-github"></i></a></li>
+        </ul>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2 small">
+        <span>&copy; 2026 DevCook. Todos os direitos reservados. Feito com amor e código.</span>
+        <span>v1.0.0-rc2 &bull; Kitchen Engine</span>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

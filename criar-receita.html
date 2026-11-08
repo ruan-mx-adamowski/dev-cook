@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevCook — Nova Receita</title>
+  <meta name="description" content="Escreva sua receita autoral no DevCook.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- CSS gerado pelo Sass (scss/main.scss) -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="page-criar">
+  <a class="visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+  <header class="dc-header">
+    <div class="container">
+      <div class="dc-header__bar">
+        <a href="index.html" class="dc-brand"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+        <nav class="dc-nav-wrap" aria-label="Principal">
+          <ul class="dc-nav">
+            <li><a href="index.html">Explorar</a></li>
+            <li><a href="minhas-receitas.html">Minhas Receitas</a></li>
+            <li><a href="criar-receita.html" aria-current="page">Criar Receita</a></li>
+            <li><a href="#">Sobre</a></li>
+          </ul>
+        </nav>
+        <!-- A busca foi removida: aqui o foco é escrever, não procurar -->
+        <div class="dc-header__actions ms-auto">
+          <a href="minhas-receitas.html" class="btn btn-dc-soft btn-sm d-none d-md-inline-flex align-items-center gap-2"><i class="bi bi-x-lg"></i> Sair do editor</a>
+          <a href="login.html" class="dc-icon-btn dc-icon-btn--avatar" aria-label="Minha conta"><i class="bi bi-person"></i></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo" class="container dc-main">
+    <section class="dc-page-hero dc-editor-hero" aria-labelledby="titulo-criar">
+      <span class="dc-eyebrow"><i class="bi bi-pencil-square" aria-hidden="true"></i> Novo rascunho</span>
+      <h1 id="titulo-criar" class="dc-title">Escreva sua receita</h1>
+      <p class="dc-subtitle">Comece em branco: conte o que você criou, do primeiro ingrediente ao último passo.</p>
+    </section>
+
+    <div class="row g-4">
+      <div class="col-12 col-lg-8">
+        <form class="dc-card dc-editor" action="minhas-receitas.html" method="get">
+
+          <!-- 1. Identidade da receita -->
+          <fieldset class="dc-editor__section">
+            <legend class="dc-form-section"><span class="dc-step-num">1</span> Dê um nome à sua criação</legend>
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="recTitulo" class="dc-label">Título da receita</label>
+                <div class="dc-input-group"><i class="bi bi-card-heading" aria-hidden="true"></i><input id="recTitulo" class="form-control" type="text" name="titulo" placeholder="Ex.: Risoto de limão siciliano" minlength="3" maxlength="80" required></div>
+                <p class="dc-msg">Informe um título com pelo menos 3 caracteres.</p>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="recCategoria" class="dc-label">Categoria</label>
+                <div class="dc-input-group"><i class="bi bi-tags" aria-hidden="true"></i><select id="recCategoria" name="categoria" class="form-select" required><option value="" selected disabled>Selecione...</option><option value="Pratos Principais">Pratos Principais</option><option value="Massas">Massas</option><option value="Sobremesas">Sobremesas</option><option value="Saladas">Saladas</option><option value="Bebidas">Bebidas</option><option value="Sopas">Sopas</option><option value="Panificação">Panificação</option></select></div>
+              </div>
+              <div class="col-12 col-md-6">
+                <span class="dc-label">Dificuldade</span>
+                <div class="dc-options">
+                  <div class="form-check"><input class="form-check-input" type="radio" name="dificuldade" id="dif0" value="Fácil" required checked><label class="form-check-label" for="dif0">Fácil</label></div>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="dificuldade" id="dif1" value="Médio" required><label class="form-check-label" for="dif1">Médio</label></div>
+                  <div class="form-check"><input class="form-check-input" type="radio" name="dificuldade" id="dif2" value="Difícil" required><label class="form-check-label" for="dif2">Difícil</label></div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 2. Ficha técnica -->
+          <fieldset class="dc-editor__section">
+            <legend class="dc-form-section"><span class="dc-step-num">2</span> Ficha técnica</legend>
+            <div class="row g-3">
+              <div class="col-6 col-md-4">
+                <label for="recTempo" class="dc-label">Tempo de preparo (HH:MM)</label>
+                <div class="dc-input-group"><i class="bi bi-stopwatch" aria-hidden="true"></i><input id="recTempo" class="form-control" type="text" name="tempo" placeholder="00:45" inputmode="numeric" maxlength="5" pattern="\d{2}:[0-5]\d" title="Use o formato HH:MM, ex.: 00:45" required></div>
+                <p class="dc-msg">Use HH:MM.</p>
+              </div>
+              <div class="col-6 col-md-4">
+                <label for="recCalorias" class="dc-label">Calorias por porção (kcal)</label>
+                <div class="dc-input-group"><i class="bi bi-fire" aria-hidden="true"></i><input id="recCalorias" class="form-control" type="number" name="calorias" min="0" max="5000" placeholder="450" required></div>
+                <p class="dc-msg">Informe de 0 a 5000.</p>
+              </div>
+              <div class="col-12">
+                <span class="dc-label">Restrições alimentares atendidas</span>
+                <div class="dc-options">
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="tags" id="tag0" value="Vegano"><label class="form-check-label" for="tag0">Vegano</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="tags" id="tag1" value="Vegetariano"><label class="form-check-label" for="tag1">Vegetariano</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="tags" id="tag2" value="Sem Glúten"><label class="form-check-label" for="tag2">Sem Glúten</label></div>
+                  <div class="form-check"><input class="form-check-input" type="checkbox" name="tags" id="tag3" value="Low-Carb"><label class="form-check-label" for="tag3">Low-Carb</label></div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- 3. Ingredientes -->
+          <fieldset class="dc-editor__section">
+            <legend class="dc-form-section"><span class="dc-step-num">3</span> O que vai na receita</legend>
+            <label for="recIngredientes" class="dc-label">Ingredientes</label>
+            <div class="dc-input-group dc-input-group--area"><i class="bi bi-basket2" aria-hidden="true"></i><textarea id="recIngredientes" class="form-control" name="ingredientes" rows="6" placeholder="Um ingrediente por linha, com a quantidade&#10;Ex.:&#10;300 g de arroz arbóreo&#10;1 limão siciliano&#10;50 g de manteiga" required></textarea></div>
+            <p class="dc-msg">Liste os ingredientes.</p>
+          </fieldset>
+
+          <!-- 4. Preparo -->
+          <fieldset class="dc-editor__section">
+            <legend class="dc-form-section"><span class="dc-step-num">4</span> Como se faz</legend>
+            <label for="recPreparo" class="dc-label">Modo de preparo</label>
+            <div class="dc-input-group dc-input-group--area"><i class="bi bi-list-ol" aria-hidden="true"></i><textarea id="recPreparo" class="form-control" name="modo_preparo" rows="8" placeholder="Escreva o passo a passo, um passo por linha&#10;Ex.:&#10;1. Refogue a cebola na manteiga.&#10;2. Junte o arroz e mexa por 2 minutos." required></textarea></div>
+            <p class="dc-msg">Descreva o modo de preparo.</p>
+          </fieldset>
+
+          <!-- 5. Foto -->
+          <fieldset class="dc-editor__section">
+            <legend class="dc-form-section"><span class="dc-step-num">5</span> Mostre o resultado</legend>
+            <label for="recImagem" class="dc-label">Foto do prato (endereço da imagem)</label>
+            <div class="dc-input-group"><i class="bi bi-image" aria-hidden="true"></i><input id="recImagem" class="form-control" type="url" name="url_imagem" placeholder="https://..." required></div>
+            <p class="dc-msg">Informe um endereço de imagem válido (https://...).</p>
+          </fieldset>
+
+          <div class="dc-editor__actions">
+            <a href="minhas-receitas.html" class="btn btn-dc-soft">Descartar</a>
+            <button type="submit" class="btn btn-dc d-inline-flex align-items-center gap-2">Publicar receita <i class="bi bi-send"></i></button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="col-12 col-lg-4" aria-label="Dicas de escrita">
+        <div class="dc-card dc-tips-card">
+          <h2 class="dc-form-section"><i class="bi bi-lightbulb" aria-hidden="true"></i> Dicas de escrita</h2>
+          <ul class="dc-tips">
+            <li><i class="bi bi-check2-circle"></i>Use um título curto e descritivo.</li>
+            <li><i class="bi bi-check2-circle"></i>Informe o tempo no formato HH:MM (ex.: 00:45).</li>
+            <li><i class="bi bi-check2-circle"></i>Liste um ingrediente por linha, com a quantidade.</li>
+            <li><i class="bi bi-check2-circle"></i>Descreva o modo de preparo passo a passo.</li>
+            <li><i class="bi bi-check2-circle"></i>Use uma foto horizontal, de boa qualidade.</li>
+          </ul>
+        </div>
+        <div class="dc-card dc-tips-card mt-4">
+          <h2 class="dc-form-section"><i class="bi bi-journal-check" aria-hidden="true"></i> Antes de publicar</h2>
+          <p class="mb-0 small">Releia os ingredientes e confira se nenhum passo ficou de fora. Depois de publicada, sua receita aparece em <a href="minhas-receitas.html">Minhas Receitas</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="dc-footer">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <a href="index.html" class="dc-brand dc-brand--sm"><span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span> Dev<span class="dc-brand__accent">Cook</span></a>
+          <span>&mdash; Gastronomia orientada a código</span>
+        </div>
+        <ul class="dc-footer__links">
+          <li><a href="https://spoonacular.com/food-api" target="_blank" rel="noopener">Spoonacular API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://viacep.com.br" target="_blank" rel="noopener">ViaCEP API <i class="bi bi-box-arrow-up-right"></i></a></li>
+          <li><a href="https://github.com/ruan-mx-adamowski/projeto-dev_cook" target="_blank" rel="noopener">Repositório GitHub <i class="bi bi-github"></i></a></li>
+        </ul>
+      </div>
+      <div class="d-flex flex-column flex-md-row justify-content-between gap-2 small">
+        <span>&copy; 2026 DevCook. Todos os direitos reservados. Feito com amor e código.</span>
+        <span>v1.0.0-rc2 &bull; Kitchen Engine</span>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

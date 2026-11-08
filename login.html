@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevCook — Login</title>
+  <meta name="description" content="Faça login no seu workspace culinário inteligente do DevCook.">
+
+  <!-- Bootstrap 5.3 (CSS) e Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- CSS do projeto (carregado por último para poder sobrescrever o Bootstrap) -->
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+  <main class="auth-page">
+    <div class="auth-shell auth-shell--login">
+      <!-- Mobile: 1 coluna | Desktop (lg): 2 colunas lado a lado -->
+      <div class="row g-4">
+
+        <!-- ================= COLUNA ESQUERDA (só aparece a partir de lg) ================= -->
+        <aside class="col-lg-6 d-none d-lg-block">
+          <div class="auth-panel auth-aside auth-aside--login h-100">
+
+            <div class="d-flex flex-column gap-4">
+              <span class="dc-tag dc-tag--blue">
+                <span class="dc-dot" aria-hidden="true"></span> DevCook Workspace v2.4
+              </span>
+
+              <h2 class="dc-headline">
+                Cozinhar com <span class="dc-accent">código</span> e sabor.
+              </h2>
+
+              <p class="dc-lead">
+                Encontre receitas perfeitas com os ingredientes que você já tem na geladeira. Menos retrabalho, zero desperdício.
+              </p>
+
+              <!-- Foto + barra "pantry.compile()".
+                   Troque o src por uma imagem sua (ex.: img/login-hero.jpg) -->
+              <div class="dc-hero">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=900&q=80"
+                     alt="Bancada de cozinha com legumes picados e um notebook">
+                <div class="dc-hero__bar">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="dc-hero__icon"><i class="bi bi-terminal"></i></span>
+                    <div>
+                      <strong>pantry.compile()</strong>
+                      <small>12 ingredientes otimizados</small>
+                    </div>
+                  </div>
+                  <span class="dc-pill-ready">Ready to cook</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Métricas -->
+            <div class="row g-3">
+              <div class="col-4">
+                <div class="dc-stat"><strong>+5.000</strong>Receitas mapeadas</div>
+              </div>
+              <div class="col-4">
+                <div class="dc-stat dc-stat--green"><strong>Real-time</strong>Cálculo nutricional</div>
+              </div>
+              <div class="col-4">
+                <div class="dc-stat"><strong>100%</strong>Zero desperdício</div>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+        <!-- ================= COLUNA DIREITA: FORMULÁRIO ================= -->
+        <section class="col-12 col-lg-6">
+          <div class="auth-panel auth-form-panel h-100">
+
+            <!-- Marca + selo SSL -->
+            <header class="d-flex justify-content-between align-items-center gap-2 mb-4">
+              <a href="index.html" class="dc-brand">
+                <span class="dc-brand__icon"><i class="bi bi-cup-hot"></i></span>
+                DevCook
+              </a>
+              <span class="dc-badge-ssl"><i class="bi bi-lock"></i> SSL 256-bit</span>
+            </header>
+
+            <h1 class="dc-title">Bem-vindo de volta</h1>
+            <p class="dc-subtitle mb-4">Faça login no seu workspace culinário inteligente</p>
+
+            <!-- Mensagem de erro (exemplo estático, igual ao design).
+                 Quando você aprender JavaScript, ela ficará escondida (classe d-none)
+                 e só aparecerá quando as credenciais forem inválidas. -->
+            <div class="alert dc-alert-error d-flex align-items-start gap-3" role="alert">
+              <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+              <div class="flex-grow-1">
+                <strong>Erro de autenticação</strong>
+                Credenciais inválidas. Por favor verifique seu e-mail e senha.
+              </div>
+              <button type="button" class="btn-close" aria-label="Fechar"></button>
+            </div>
+
+            <form action="index.html" method="get">
+              <!-- Ao enviar (depois da validação do navegador), vai para a página principal.
+                 Os inputs estão sem o atributo name de propósito: assim nada (nem a senha) vai para a URL.
+                 Quando tiver JS/back-end, volte a colocar name em cada campo. -->
+              <!-- E-mail -->
+              <div class="mb-3">
+                <label for="loginEmail" class="dc-label">E-mail profissional ou pessoal</label>
+                <div class="dc-input-group">
+                  <i class="bi bi-envelope" aria-hidden="true"></i>
+                  <input type="email" id="loginEmail" class="form-control"
+                         placeholder="chef@devcook.io" autocomplete="email" required>
+                </div>
+              </div>
+
+              <!-- Senha -->
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <label for="loginPassword" class="dc-label">Senha de acesso</label>
+                  <a href="#" class="dc-link small">Esqueceu a senha?</a>
+                </div>
+                <div class="dc-input-group">
+                  <i class="bi bi-lock" aria-hidden="true"></i>
+                  <input type="password" id="loginPassword" class="form-control"
+                         placeholder="Sua senha" autocomplete="current-password" required>
+                  <button type="button" class="dc-eye" aria-label="Mostrar senha">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Lembrar dispositivo -->
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-1 mb-4">
+                <div class="form-check mb-0">
+                  <input class="form-check-input" type="checkbox" id="rememberMe" checked>
+                  <label class="form-check-label" for="rememberMe">Lembrar deste dispositivo</label>
+                </div>
+                <span class="small text-secondary">Sessão ativa por 30 dias</span>
+              </div>
+
+              <button type="submit" class="btn btn-dc w-100 d-flex align-items-center justify-content-center gap-2">
+                Entrar na Cozinha <i class="bi bi-arrow-right"></i>
+              </button>
+            </form>
+
+            <!-- Divisor + login social -->
+            <div class="dc-divider my-4">ou continue com</div>
+
+            <div class="row g-3">
+              <div class="col-12 col-sm-6">
+                <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2">
+                  <i class="bi bi-google"></i> Google
+                </button>
+              </div>
+              <div class="col-12 col-sm-6">
+                <button type="button" class="btn btn-dc-soft w-100 d-flex align-items-center justify-content-center gap-2">
+                  <i class="bi bi-github"></i> GitHub
+                </button>
+              </div>
+            </div>
+
+            <!-- Link para o cadastro -->
+            <footer class="auth-form-panel__foot text-center">
+              <span class="text-secondary">Não tem uma conta?</span>
+              <a href="cadastro.html" class="dc-link dc-link--underline">Cadastre-se gratuitamente</a>
+            </footer>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
